@@ -9,7 +9,12 @@ const { add2 } = require("./js/math2")
 import $ from "jquery"
 // 引入图片
 import logo from "./assets/image/logo.png"
-import bg from "./assets/image/bg.jpg"
+
+// 引入css文件
+import "./assets/css/test1.css"
+import "./assets/css/test2.less"
+import "./assets/css/test3.scss"
+import "./assets/css/test4.styl"
 
 console.log(add1(4, 6))
 console.log(add2(5, 10))
@@ -23,7 +28,8 @@ new Promise(() => {})
 Array.from(new Set([1, 4]))
 class A {}
 
-console.log("image", logo, bg)
-const $logo = $("<img>").attr("src", logo)
-const $bg = $("<img>").attr("src", bg)
-$("body").append($logo).append($bg)
+console.log("image", logo)
+const $img1 = $("<img>").attr("src", logo).addClass("avatar1")
+const $img2 = $("<img>").attr("src", logo).addClass("avatar2")
+const $img3 = $("<img>").attr("src", logo).addClass("avatar3")
+$("body").append($img1).append($img2).append($img3)

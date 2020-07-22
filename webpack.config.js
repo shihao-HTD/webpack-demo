@@ -16,7 +16,7 @@ module.exports = {
   },
   module: {
     rules: [
-      // es6==>es5
+      //  es6==>es5
       {
         test: /\.js$/,
         include: [resolve("src")],
@@ -60,6 +60,26 @@ module.exports = {
             },
           },
         ],
+      },
+      // 处理css
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader", "postcss-loader"],
+      },
+      // 处理less
+      {
+        test: /\.less$/,
+        use: ["style-loader", "css-loader", "postcss-loader", "less-loader"],
+      },
+      // 处理sass
+      {
+        test: /\.(scss|sass)$/,
+        use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
+      },
+      // 处理 stylus
+      {
+        test: /\.(styl|stylus)$/,
+        use: ["style-loader", "css-loader", "postcss-loader", "stylus-loader"],
       },
     ],
   },
