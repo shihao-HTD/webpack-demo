@@ -1,0 +1,27 @@
+{
+  "name": "webpack-demo",
+  "version": "1.0.0",
+  "description": "0). 相关依赖包\r       webpack\r       webpack-cli\r       webpack-dev-server\r       html-webpack-plugin\r       clean-webpack-plugin@1.0.1\r   1). 能打包多个遵循ESM或CommonJS的JS文件\r   2). 将打包生成的JS/CSS在页面中自动引入\r   3). 能启动服务器运行访问项目, 并实现live-reload\r   4). 自动清除打包文件夹",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "dev": "webpack-dev-server --mode=development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shihao-HTD/webpack-demo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shihao-HTD/webpack-demo/issues"
+  },
+  "homepage": "https://github.com/shihao-HTD/webpack-demo#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "1.0.1",
+    "html-webpack-plugin": "^4.3.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
