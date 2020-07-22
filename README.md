@@ -1,63 +1,68 @@
 ## 1. 基本使用
-  0). 相关依赖包
-      webpack
-      webpack-cli
-      webpack-dev-server
-      html-webpack-plugin
-      clean-webpack-plugin@1.0.1
-  1). 能打包多个遵循ESM或CommonJS的JS文件
-  2). 将打包生成的JS/CSS在页面中自动引入
-  3). 能启动服务器运行访问项目, 并实现live-reload
-  4). 自动清除打包文件夹
 
-## 2. 打包JS
-  0). 相关依赖包
-      babel-loader
-      @babel/core
-      @babel/preset-env
-      @babel/polyfill
-          core-js2
-          regenerator-runtime
-      @babel/plugin-transform-runtime & @babel/runtime
-  1). 编译ES6代码兼容低版本浏览器
-      问题1: webpack本身不能编译ES6语法 ==> 借助babel来处理 
-      问题2: babel本身也是不能编译ES6语法 ==> babel有很多用于编译ES6语法的插件包, 可以都下载并配置上
-      问题3: 如果直接通过babel插件来处理太麻烦了  ==> 使用babel封装的包含常用插件包的大包: preset-env
-      问题4: preset-env只能编译ES6的语法部分, 一些新的API(Promise/Set/Map等)都没有处理  ==> 引入polyfill
-  2). 减小JS打包文件
-      问题5: 直接引入polyfill会导致应用打包文件会变大很多(几百k) ==> 配置useBuiltIns:'entry'只打包浏览器未实现的部分
-      问题6: 当前还是打包了一些没有使用的API定义代码  ==> 配置useBuiltIns:'usage'只打包使用的新API部分
-      问题7: 默认新API的引入辅助函数有重复定义的问题  ===> 配置plugin-transform-runtime引入专门的辅助函数, 避免重复定义
-  3). 单独打包第三方模块JS & 压缩JS
+0). 相关依赖包
+webpack
+webpack-cli
+webpack-dev-server
+html-webpack-plugin
+clean-webpack-plugin@1.0.1
+1). 能打包多个遵循 ESM 或 CommonJS 的 JS 文件
+2). 将打包生成的 JS/CSS 在页面中自动引入
+3). 能启动服务器运行访问项目, 并实现 live-reload
+4). 自动清除打包文件夹
+
+## 2. 打包 JS
+
+0). 相关依赖包
+babel-loader
+@babel/core
+@babel/preset-env
+@babel/polyfill
+core-js2
+regenerator-runtime
+@babel/plugin-transform-runtime & @babel/runtime
+1). 编译 ES6 代码兼容低版本浏览器
+问题 1: webpack 本身不能编译 ES6 语法 ==> 借助 babel 来处理
+问题 2: babel 本身也是不能编译 ES6 语法 ==> babel 有很多用于编译 ES6 语法的插件包, 可以都下载并配置上
+问题 3: 如果直接通过 babel 插件来处理太麻烦了 ==> 使用 babel 封装的包含常用插件包的大包: preset-env
+问题 4: preset-env 只能编译 ES6 的语法部分, 一些新的 API(Promise/Set/Map 等)都没有处理 ==> 引入 polyfill
+2). 减小 JS 打包文件
+问题 5: 直接引入 polyfill 会导致应用打包文件会变大很多(几百 k) ==> 配置 useBuiltIns:'entry'只打包浏览器未实现的部分
+问题 6: 当前还是打包了一些没有使用的 API 定义代码 ==> 配置 useBuiltIns:'usage'只打包使用的新 API 部分
+问题 7: 默认新 API 的引入辅助函数有重复定义的问题 ===> 配置 plugin-transform-runtime 引入专门的辅助函数, 避免重复定义
+3). 单独打包第三方模块 JS & 压缩 JS
 
 ## 3. 打包样式
-  0). 相关依赖包
-      css-loader
-      style-loader
-      less-loader
-      less
-      stylus-loader
-      stylus
-      sass-loader
-      node-sass
-      postcss-loader
-      autoprefixer
-      postcss-px2rem
-  1). 打包css
-  2). 打包css预编译器: less/stylus/sass
-  3). 利用postcss处理css
-      给c3样式自动添加浏览器厂商前缀
-      移动端适配: 将px自动转换为rem
-  4). 抽取css单独打包 & 压缩css
 
-## webpack-dev-server深入使用
+0). 相关依赖包
+css-loader
+style-loader
+less-loader
+less
+stylus-loader
+stylus
+sass-loader
+node-sass
+postcss-loader
+autoprefixer
+postcss-px2rem
+1). 打包 css
+2). 打包 css 预编译器: less/stylus/sass
+3). 利用 postcss 处理 css
+给 c3 样式自动添加浏览器厂商前缀
+移动端适配: 将 px 自动转换为 rem
+4). 抽取 css 单独打包 & 压缩 css
+
+## webpack-dev-server 深入使用
+
     1). 基本功能: live-reload
     2). hot-reald / HMR
     3). proxy server
     4). history路由/Browser路由刷新404问题
     5). mock API
 
-## devtool配置深入理解
+## devtool 配置深入理解
+
     1). sourceMap的理解
     2). 各组成单元理解
         source-map
@@ -71,6 +76,7 @@
         生产环境-----devtool: 'none'
 
 ## 打包文件优化
+
     1). 拆分打包
         单独打包第三方模块JS & 压缩JS
         抽取css单独打包 & 压缩css
@@ -93,7 +99,7 @@
             chunkhash
             contenthash
         module,chunk与bundle的关系
-            
+
     5). tree-shaking(摇树)
         删除模块中向外暴露但未被使用的代码
         条件1: ES6的export暴露
@@ -106,6 +112,7 @@
     7). 打包文件分析
 
 ## 打包优化
+
     加快打包速度
         1). loader增加include匹配特定条件
         2). 合理配置extensions扩展名

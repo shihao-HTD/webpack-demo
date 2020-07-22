@@ -6,6 +6,11 @@
 import { add1 } from "./js/math1"
 const { add2 } = require("./js/math2")
 
+import $ from "jquery"
+// 引入图片
+import logo from "./assets/image/logo.png"
+import bg from "./assets/image/bg.jpg"
+
 console.log(add1(4, 6))
 console.log(add2(5, 10))
 
@@ -17,3 +22,8 @@ fn()
 new Promise(() => {})
 Array.from(new Set([1, 4]))
 class A {}
+
+console.log("image", logo, bg)
+const $logo = $("<img>").attr("src", logo)
+const $bg = $("<img>").attr("src", bg)
+$("body").append($logo).append($bg)
