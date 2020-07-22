@@ -15,7 +15,13 @@ module.exports = {
     filename: "js/bundle.js",
   },
   module: {
-    rules: [],
+    rules: [
+      {
+        test: /\.js$/,
+        include: [resolve("src")],
+        loader: "babel-loader",
+      },
+    ],
   },
   plugins: [
     // 打包html页面 并引入打包的js
