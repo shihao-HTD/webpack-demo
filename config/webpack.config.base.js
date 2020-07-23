@@ -38,7 +38,7 @@ module.exports = {
             loader: "url-loader",
             options: {
               limit: 1024 * 5, //把小于 5kb 的文件转成 Base64 的格式
-              name: "img/[name].[ext]", // 内变化hash变化
+              name: "img/[name].[hash:8].[ext]", // 内变化hash变化
             },
           },
         ],

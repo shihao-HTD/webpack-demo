@@ -35,7 +35,7 @@ const $img2 = $("<img>").attr("src", logo).addClass("avatar2")
 const $img3 = $("<img>").attr("src", logo).addClass("avatar3")
 $("body").append($img1).append($img2).append($img3)
 
-console.log("yyyy")
+console.log("demoxx")
 // 代码分割
 $img2.click(() => {
   import(/* webpackChunkName: "xxx" */ "./js/asynModule1").then(
