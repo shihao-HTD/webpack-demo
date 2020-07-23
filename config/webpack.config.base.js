@@ -1,14 +1,6 @@
-const path = require("path")
+const { resolve } = require("./untils")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
-const CleanWebpackPlugin = require("clean-webpack-plugin")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
-const webpack = require("webpack")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
-
-function resolve(dir) {
-  return path.resolve(__dirname, dir)
-}
 
 module.exports = {
   entry: {
@@ -16,7 +8,6 @@ module.exports = {
   },
   output: {
     path: resolve("dist"),
-    filename: "js/bundle.js",
     publicPath: "/",
   },
   module: {
@@ -77,41 +68,6 @@ module.exports = {
           },
         ],
       },
-      // 处理css
-      {
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
-      },
-      // 处理less
-      {
-        test: /\.less$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "postcss-loader",
-          "less-loader",
-        ],
-      },
-      // 处理sass
-      {
-        test: /\.(scss|sass)$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "postcss-loader",
-          "sass-loader",
-        ],
-      },
-      // 处理 stylus
-      {
-        test: /\.(styl|stylus)$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "postcss-loader",
-          "stylus-loader",
-        ],
-      },
     ],
   },
   plugins: [
@@ -126,13 +82,7 @@ module.exports = {
       template: "public/index.html",
       filename: "index.html",
     }),
-    // 每次执行打包命令 自动清除上次dist文件
-    new CleanWebpackPlugin(["dist"]),
 
-    // 抽取/单独打包CSS
-    new MiniCssExtractPlugin({
-      filename: "css/[name].css",
-    }),
     // 拷贝静态文件
     new CopyWebpackPlugin({
       patterns: [
@@ -142,15 +92,5 @@ module.exports = {
         },
       ],
     }),
-    // 热模替换
-    new webpack.HotModuleReplacementPlugin(),
   ],
-  devServer: {
-    open: true,
-    hot: true,
-  },
-  optimization: {
-    // 压缩css文件
-    minimizer: [new OptimizeCssAssetsWebpackPlugin()],
-  },
 }
