@@ -1,6 +1,7 @@
 const { resolve } = require("./untils")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
+const PreloadWebpackPlugin = require("preload-webpack-plugin")
 
 module.exports = {
   entry: {
@@ -91,6 +92,29 @@ module.exports = {
           to: "css",
         },
       ],
+    }),
+
+    // 针对异步加载的包用prefetch
+    new PreloadWebpackPlugin({
+      rel: "prefetch",
+      include: "asyncChunks",
+      as(entry) {
+        if (/\.css$/.test(entry)) return "style"
+        if (/\.woff$/.test(entry)) return "font"
+        if (/\.png$/.test(entry)) return "image"
+        return "script"
+      },
+    }),
+    // 针对同步的包使用preload
+    new PreloadWebpackPlugin({
+      rel: "preload",
+      include: ["app", "vendors~app", "runtime"],
+      as(entry) {
+        if (/\.css$/.test(entry)) return "style"
+        if (/\.woff$/.test(entry)) return "font"
+        if (/\.png$/.test(entry)) return "image"
+        return "script"
+      },
     }),
   ],
 }
