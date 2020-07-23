@@ -1,7 +1,10 @@
 const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const CleanWebpackPlugin = require("clean-webpack-plugin")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
 
+//TODO 单独打包样式和压缩
 function resolve(dir) {
   return path.resolve(__dirname, dir)
 }
@@ -13,6 +16,7 @@ module.exports = {
   output: {
     path: resolve("dist"),
     filename: "js/bundle.js",
+    publicPath: "/",
   },
   module: {
     rules: [
@@ -64,22 +68,37 @@ module.exports = {
       // 处理css
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader", "postcss-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
       // 处理less
       {
         test: /\.less$/,
-        use: ["style-loader", "css-loader", "postcss-loader", "less-loader"],
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "less-loader",
+        ],
       },
       // 处理sass
       {
         test: /\.(scss|sass)$/,
-        use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
       },
       // 处理 stylus
       {
         test: /\.(styl|stylus)$/,
-        use: ["style-loader", "css-loader", "postcss-loader", "stylus-loader"],
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "stylus-loader",
+        ],
       },
     ],
   },
@@ -91,9 +110,17 @@ module.exports = {
     }),
     // 每次执行打包命令 自动清除上次dist文件
     new CleanWebpackPlugin(["dist"]),
-  ],
 
+    // 抽取/单独打包CSS
+    new MiniCssExtractPlugin({
+      filename: "css/[name].[hash:8].css",
+    }),
+  ],
   devServer: {
     open: true,
+  },
+  optimization: {
+    // 压缩css文件
+    minimizer: [new OptimizeCssAssetsWebpackPlugin()],
   },
 }
