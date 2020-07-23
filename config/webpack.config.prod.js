@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
 const { merge } = require("webpack-merge")
 const UglifyjsWebpackPlugin = require("uglifyjs-webpack-plugin")
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
 
 const config = {
   mode: "production",
@@ -80,4 +81,10 @@ const config = {
   },
   devtool: "cheap-module-source-map",
 }
+
+// 如果指定了--report配置, 就添加打包文件分析的插件
+if (process.env.npm_config_report) {
+  config.plugins.push(new BundleAnalyzerPlugin())
+}
+
 module.exports = merge(baseConfig, config)
