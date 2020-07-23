@@ -3,7 +3,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 const CleanWebpackPlugin = require("clean-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
-
+const webpack = require("webpack")
+const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 function resolve(dir) {
   return path.resolve(__dirname, dir)
@@ -116,6 +117,12 @@ module.exports = {
   plugins: [
     // 打包html页面 并引入打包的js
     new HtmlWebpackPlugin({
+      minify: {
+        // 压缩 HTML 文件
+        removeComments: true, // 移除 HTML 中的注释
+        collapseWhitespace: true, // 删除空白符与换行符
+        minifyCSS: true, // 压缩内联 css
+      },
       template: "public/index.html",
       filename: "index.html",
     }),
@@ -124,11 +131,23 @@ module.exports = {
 
     // 抽取/单独打包CSS
     new MiniCssExtractPlugin({
-      filename: "css/[name].[hash:8].css",
+      filename: "css/[name].css",
     }),
+    // 拷贝静态文件
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: resolve("public/css"),
+          to: "css",
+        },
+      ],
+    }),
+    // 热模替换
+    new webpack.HotModuleReplacementPlugin(),
   ],
   devServer: {
     open: true,
+    hot: true,
   },
   optimization: {
     // 压缩css文件

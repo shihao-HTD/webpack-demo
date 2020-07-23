@@ -34,3 +34,5 @@ const $img1 = $("<img>").attr("src", logo).addClass("avatar1")
 const $img2 = $("<img>").attr("src", logo).addClass("avatar2")
 const $img3 = $("<img>").attr("src", logo).addClass("avatar3")
 $("body").append($img1).append($img2).append($img3)
+
+console.log('xxxxxx111111')
