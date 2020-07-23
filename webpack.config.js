@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require("clean-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
 
-//TODO 单独打包样式和压缩
+
 function resolve(dir) {
   return path.resolve(__dirname, dir)
 }
@@ -20,6 +20,17 @@ module.exports = {
   },
   module: {
     rules: [
+      // eslint 语法规范检查
+      {
+        enforce: "pre", // 前置loader, 最先执行
+        test: /\.js$/,
+        // exclude: /node_modules/,
+        include: resolve("src"),
+        loader: "eslint-loader",
+        options: {
+          formatter: require("eslint-friendly-formatter"),
+        },
+      },
       //  es6==>es5
       {
         test: /\.js$/,

@@ -26,6 +26,7 @@ const fn = () => {
 fn()
 new Promise(() => {})
 Array.from(new Set([1, 4]))
+
 class A {}
 
 console.log("image", logo)
