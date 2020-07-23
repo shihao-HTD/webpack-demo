@@ -35,4 +35,16 @@ const $img2 = $("<img>").attr("src", logo).addClass("avatar2")
 const $img3 = $("<img>").attr("src", logo).addClass("avatar3")
 $("body").append($img1).append($img2).append($img3)
 
-console.log('xxxxxx111111')
+console.log('yyyy')
+// 代码分割
+$img2.click(() => {
+  import("./js/asynModule1").then((asyncModule) => {
+    asyncModule.study()
+  })
+})
+$img3.click(() => {
+  import("./js/asyncModule2").then((asyncModule) => {
+    asyncModule.study2()
+  })
+})
+
