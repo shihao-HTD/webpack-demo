@@ -3,7 +3,7 @@ const baseConfig = require("./webpack.config.base")
 const CleanWebpackPlugin = require("clean-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
-const {merge} = require("webpack-merge")
+const { merge } = require("webpack-merge")
 
 const config = {
   mode: "production",
@@ -61,5 +61,6 @@ const config = {
     // 压缩css文件
     minimizer: [new OptimizeCssAssetsWebpackPlugin()],
   },
+  devtool: "cheap-module-source-map",
 }
 module.exports = merge(baseConfig, config)
